@@ -1,4 +1,6 @@
 #!/bin/bash
+# Updating $PATH so we can use parted tools
+PATH=/usr/sbin:$PATH
 
 log() {
     printf "\n\033[32m$*\033[00m\n"
@@ -54,7 +56,7 @@ cd /tmp
 
 if [ ! -f "${OSFILE}" ]; then
     log "Downloading ${OSFILE}"
-    wget ${OSHOST}${OSFILE}
+    wget ${OSHOST}${OSFILE} --no-check-certificate
 else
     log "Looks like you already have ${OSFILE}"
 fi
@@ -67,7 +69,7 @@ tar -xf ${OSFILE} -C root
 
 if [ ! -f "root/boot/${BOOTFILE}" ]; then
     log "Downloading ${BOOTFILE}"
-    wget -O "root/boot/${BOOTFILE}" "${OSHOST}exynos/${BOOTFILE}"
+    wget -O "root/boot/${BOOTFILE}" "${OSHOST}exynos/${BOOTFILE}" --no-check-certificate
 else
     log "Looks like we already have boot.scr.uimg"
 fi
@@ -109,7 +111,7 @@ if [ $DEVICE = $EMMC ]; then
 else
     if [ ! -f "${UBOOTFILE}" ]; then
         log "Downloading ${UBOOTFILE}"
-        wget ${UBOOTHOST}${UBOOTFILE}
+        wget ${UBOOTHOST}${UBOOTFILE} --no-check-certificate
     else
         log "Looks like you already have ${UBOOTFILE}"
     fi
