@@ -110,7 +110,7 @@ else
 fi
 log "Installing Arch to ${P3} (this will take a moment...)"
 for mnt in `mount | grep ${DEVICE} | awk '{print $1}'`;do
-    umount ${mnt}
+    umount -l ${mnt}
 done
 mkdir -p root
 mount -o exec $P3 root
