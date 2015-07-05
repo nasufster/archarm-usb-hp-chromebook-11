@@ -55,6 +55,7 @@ if [ $DEVICE = $EMMC ]; then
     	useradd -c 'Build user' -m build
     	su -c "packer -S trousers" build
     	userdel -r build > /dev/null 2>&1
+    fi
     if [ ! -L /usr/sbin ] && [ ! -d /usr/sbin ]; then
 	ln -s /usr/bin /usr/sbin
     fi
