@@ -50,10 +50,11 @@ if [ $DEVICE = $EMMC ]; then
     # for eMMC we need to get some things before we can partition
     pacman -Syu --needed packer devtools-alarm base-devel git libyaml parted dosfstools parted wget
     pacman -S --needed --noconfirm vboot-utils 
-    log "When prompted to modify PKGBUILD for trousers, set arch to armv7h"
-    useradd -c 'Build user' -m build
-    su -c "packer -S trousers" build
-    userdel -r build > /dev/null 2>&1
+    if (!(which trousers > /dev/null 2>&1) ); then 
+    	log "When prompted to modify PKGBUILD for trousers, set arch to armv7h"
+    	useradd -c 'Build user' -m build
+    	su -c "packer -S trousers" build
+    	userdel -r build > /dev/null 2>&1
     if [ ! -L /usr/sbin ] && [ ! -d /usr/sbin ]; then
 	ln -s /usr/bin /usr/sbin
     fi
@@ -180,7 +181,7 @@ if [ $DEVICE = $EMMC ]; then
     dd if=arch-eMMC.kpart of=$P1
 
     sync
-
+    exec post-install.sh
     log "All done! Reboot and press ctrl + D to boot Arch"
 else
     if [ ! -f "${UBOOTFILE}" ]; then

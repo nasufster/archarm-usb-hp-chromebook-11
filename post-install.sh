@@ -1,5 +1,5 @@
 #!/bin/bash
-REPOPATH="https://raw.githubusercontent.com/omgmog/archarm-usb-hp-chromebook-11/master/"
+REPOPATH="https://raw.githubusercontent.com/nasfter/archarm-usb-hp-chromebook-11/master/"
 
 # Update pacman and install some important things
 pacman -Syyu
@@ -8,12 +8,11 @@ then
 	pacman -Sy wget
 fi
 pacman -S mesa-libgl xorg-server xorg-xinit xorg-server-utils xterm alsa-utils xf86-video-fbdev xf86-input-synaptics
-pacman -S dwm dmenu
+pacman -S dwm dmenu seamonkey
 echo "exec dwm" > ~/.xinitrc
 
 pacman -S alsa-lib alsa-utils
 
-echo "exec mate-session" > ~/.xinitrc
 cp /opt/asound.state /etc/asound.state
 cp -r /opt/ucm* /usr/share/alsa/ucm/
 
